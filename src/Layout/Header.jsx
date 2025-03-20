@@ -1,10 +1,11 @@
-import Nav from "../Components/Nav";
+import Nav from "../Components/Nav.jsx";
 
 function Header() {
-  return;
-  <>
-    <Nav></Nav>
-  </>;
+  return (
+    <>
+      <Nav />
+    </>
+  );
 }
 
 export default Header;
