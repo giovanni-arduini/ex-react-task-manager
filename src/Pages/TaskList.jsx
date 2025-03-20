@@ -5,6 +5,7 @@ function TaskList() {
 
   return (
     <>
+<<<<<<< HEAD
       <table>
         <thead>
           <tr>
@@ -21,6 +22,22 @@ function TaskList() {
           ))}
         </thead>
       </table>
+=======
+      <thead>
+        <tr>
+          <th>Titolo</th>
+          <th>Descrizione</th>
+          <th>Stato</th>
+        </tr>
+        {tasks.map((task) => (
+          <tr key={task.id}>
+            <td>{task.title}</td>
+            <td>{task.description}</td>
+            <td>{task.status}</td>
+          </tr>
+        ))}
+      </thead>
+>>>>>>> origin/main
     </>
   );
 }
