@@ -12,8 +12,11 @@ function App() {
   useEffect(() => {
     fetch("http://localhost:3001/tasks")
       .then((response) => response.json())
-      .then((data) => setTasks(data));
+      .then((data) => setTasks(data))
+      .catch((error) => console.log(error));
   }, []);
+
+  console.log("tasks", tasks);
 
   return (
     <GlobalContext.Provider value={{ tasks, setTasks }}>
