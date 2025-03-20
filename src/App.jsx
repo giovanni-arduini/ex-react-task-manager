@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<DefaultLayout />}>
+        <Route element={<DefaultLayout />}>
           <Route path="/" element={<TaskList />}></Route>
           <Route path="/add" element={<AddTask />}></Route>
         </Route>
