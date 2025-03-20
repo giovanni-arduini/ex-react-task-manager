@@ -5,7 +5,7 @@
 
 .table-header {
   display: table-header-group;
-  background-color: rgb(206, 201, 201);
+  background-color: rgb(250, 226, 249);
   font-weight: bold;
   font-size: 20px;
 }
@@ -27,13 +27,13 @@
 }
 
 .red {
-  background-color: red;
+  background-color: rgb(244, 129, 129);
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: rgb(244, 230, 140);
 }
 
 .green {
-  background-color: green;
+  background-color: rgb(105, 164, 105);
 }
