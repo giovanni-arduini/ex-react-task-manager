@@ -1,4 +1,4 @@
-.table {
+/* .table {
   width: 100%;
   display: table;
 }
@@ -24,7 +24,7 @@
   display: table-cell;
   padding: 10px;
   text-align: justify;
-}
+} */
 
 .red {
   background-color: rgb(244, 129, 129);
