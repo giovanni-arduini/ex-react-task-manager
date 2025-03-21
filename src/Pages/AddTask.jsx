@@ -19,6 +19,11 @@ function AddTask() {
   function handleSubmit(e) {
     e.preventDefault();
 
+    if (!isTitleValid || title.trim().length === 0) {
+      alert("Il titolo non è valido");
+      return;
+    }
+
     console.log(title, descriptionRef.current.value, statusRef.current.value);
 
     setTitle("");
