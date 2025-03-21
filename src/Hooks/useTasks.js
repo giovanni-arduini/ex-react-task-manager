@@ -10,7 +10,19 @@ function useTasks() {
       .catch((error) => console.log(error));
   }, []);
 
-  return { tasks };
+  function addTask(newTask) {
+    // Creazione nuova task
+  }
+
+  function removeTask(task) {
+    // Elminazione di una task
+  }
+
+  function updateTask(task) {
+    // Aggiornamento di una task
+  }
+
+  return { tasks, addTask, removeTask, updateTask };
 }
 
 export default useTasks;
