@@ -1,8 +1,10 @@
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useContext } from "react";
+import { GlobalContext } from "../Context/GlobalContext";
 
 function AddTask() {
+  const { addTask } = useContext(GlobalContext);
   const [title, setTitle] = useState("");
-  const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
+  const symbols = "£!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
   const descriptionRef = useRef();
   const statusRef = useRef();
 
@@ -16,7 +18,7 @@ function AddTask() {
     setTitle(event.target.value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!isTitleValid || title.trim().length === 0) {
@@ -24,12 +26,21 @@ function AddTask() {
       return;
     }
 
-    console.log(title, descriptionRef.current.value, statusRef.current.value);
+    const newTask = {
+      title: title.trim(),
+      description: descriptionRef.current.value,
+      status: statusRef.current.value,
+    };
 
-    setTitle("");
-    descriptionRef.current.value = null;
-    statusRef.current.value = "toDo";
-    return;
+    try {
+      await addTask(newTask);
+      console.log("Task inserita con successo");
+      setTitle("");
+      descriptionRef.current.value = null;
+      statusRef.current.value = "To Do";
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   return (
@@ -62,9 +73,9 @@ function AddTask() {
             ref={descriptionRef}
           />
           <select name="status" id="status" ref={statusRef}>
-            <option value="toDo">To Do</option>
-            <option value="doing">Doing</option>
-            <option value="done">Done</option>
+            <option value="To To">To Do</option>
+            <option value="Doing">Doing</option>
+            <option value="Done">Done</option>
           </select>
           <button>Aggiungi Taks</button>
         </form>

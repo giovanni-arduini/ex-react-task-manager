@@ -10,9 +10,21 @@ function useTasks() {
       .catch((error) => console.log(error));
   }, []);
 
-  function addTask(newTask) {
-    // Creazione nuova task
-  }
+  const addTask = async (newTask) => {
+    const { title, description, status } = newTask;
+
+    const response = await fetch(`http://localhost:3001/tasks`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newTask),
+    });
+
+    const { success, message, task } = await response.json();
+    if (!success) {
+      throw new Error(message);
+    }
+    setTasks((prev) => [...prev, task]);
+  };
 
   function removeTask(task) {
     // Elminazione di una task
