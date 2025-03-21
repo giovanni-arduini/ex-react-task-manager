@@ -1,25 +1,27 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 
 function AddTask() {
-  const [taskName, setTaskName] = useState("");
-
-  function handleNameChange(event) {
-    setTaskName(event.target.value);
-  }
-
+  const [title, setTitle] = useState("");
+  const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
   const descriptionRef = useRef();
   const statusRef = useRef();
+
+  // validazione con useMemo, ricalcolata solo se cambia title
+  const isTitleValid = useMemo(() => {
+    const validChars = title.split("").every((c) => !symbols.includes(c));
+    return validChars;
+  }, [title]);
+
+  function handleNameChange(event) {
+    setTitle(event.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log(
-      taskName,
-      descriptionRef.current.value,
-      statusRef.current.value
-    );
+    console.log(title, descriptionRef.current.value, statusRef.current.value);
 
-    setTaskName("");
+    setTitle("");
     descriptionRef.current.value = null;
     statusRef.current.value = "toDo";
     return;
@@ -29,14 +31,24 @@ function AddTask() {
     <>
       <div>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="task_name"
-            id="task_name"
-            placeholder="Inserisci la nuova taks"
-            value={taskName}
-            onChange={handleNameChange}
-          />
+          <section>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Titolo della task"
+              value={title}
+              onChange={handleNameChange}
+            />
+            {(!isTitleValid && (
+              <p style={{ color: "red" }}>
+                Il titolo non può contenere caratteri speciali
+              </p>
+            )) ||
+              (title.trim().length === 0 && (
+                <p style={{ color: "red" }}>Il titolo non può essere vuoto</p>
+              ))}
+          </section>
           <input
             type="text"
             name="description"
