@@ -1,9 +1,10 @@
 import GlobalContext from "../Context/GlobalContext";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import "../Components/TaskRow";
 import TaskRow from "../Components/TaskRow";
+import { memo } from "react";
 
-function TaskList() {
+const TaskList = memo(() => {
   const { tasks } = useContext(GlobalContext);
 
   return (
@@ -24,6 +25,6 @@ function TaskList() {
       </div>
     </>
   );
-}
+});
 
 export default TaskList;
