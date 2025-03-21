@@ -2,9 +2,9 @@ import React from "react";
 
 function TaskRow({ task }) {
   return (
-    <div key={task.id} className="table-row">
-      <p>{task.title}</p>
-      <p
+    <tr>
+      <td>{task.title}</td>
+      <td
         className={
           task.status === "To do"
             ? "red"
@@ -14,9 +14,9 @@ function TaskRow({ task }) {
         }
       >
         {task.status}
-      </p>
-      <p>{task.createdAt}</p>
-    </div>
+      </td>
+      <td>{new Date(task.createdAt).toLocaleDateString()}</td>
+    </tr>
   );
 }
 
