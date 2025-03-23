@@ -26,8 +26,20 @@ function useTasks() {
     setTasks((prev) => [...prev, task]);
   };
 
-  function removeTask(task) {
+  async function removeTask(taskId) {
     // Elminazione di una task
+
+    const response = await fetch(`http://localhost:3001/tasks/${taskId}`, {
+      method: "DELETE",
+    });
+
+    const { success, message } = await response.json();
+
+    if (!success) {
+      throw new Error(message);
+    }
+
+    setTasks((prev) => prev.filter((t) => t.id != taskId));
   }
 
   function updateTask(task) {
