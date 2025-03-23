@@ -3,7 +3,9 @@ import React from "react";
 function TaskRow({ task }) {
   return (
     <tr>
-      <td>{task.title}</td>
+      <td>
+        <a href={`http://localhost:3001/tasks/${task.id}`}>{task.title}</a>
+      </td>
       <td
         className={
           task.status === "To do"
