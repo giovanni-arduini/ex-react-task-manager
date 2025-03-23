@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function TaskRow({ task }) {
   return (
     <tr>
       <td>
-        <a href={`http://localhost:3001/tasks/${task.id}`}>{task.title}</a>
+        <Link to={`/task/${task.id}`}>{task.title}</Link>
       </td>
       <td
         className={
