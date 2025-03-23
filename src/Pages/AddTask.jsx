@@ -73,7 +73,7 @@ function AddTask() {
             ref={descriptionRef}
           />
           <select name="status" id="status" ref={statusRef}>
-            <option value="To To">To Do</option>
+            <option value="To do">To Do</option>
             <option value="Doing">Doing</option>
             <option value="Done">Done</option>
           </select>
