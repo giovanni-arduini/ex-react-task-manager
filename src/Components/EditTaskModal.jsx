@@ -35,15 +35,17 @@ function EditTaskModal({ show, onClose, task, onSave }) {
             ></textarea>
           </label>
           <label>
-            Statp:
+            Stato:
             <select
               value={task.status}
               onChange={(e) => changeEditedTask("status", e)}
             >
               {["To do", "Doing", "Done"].map((value, index) => {
-                <option value={value} key={index}>
-                  {value}
-                </option>;
+                return (
+                  <option value={value} key={index}>
+                    {value}
+                  </option>
+                );
               })}
             </select>
           </label>
