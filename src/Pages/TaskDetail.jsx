@@ -2,11 +2,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { GlobalContext } from "../Context/GlobalContext";
 import Modal from "../Components/Modal";
+import EditTaskModal from "../Components/EditTaskModal";
 
 function TaskDetail() {
   const { id } = useParams();
-  const { tasks, removeTask } = useContext(GlobalContext);
+  const { tasks, removeTask, updateTask } = useContext(GlobalContext);
   const [isShow, setIsShow] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const navigate = useNavigate();
   const task = tasks.find((task) => task.id === parseInt(id));
 
@@ -25,6 +27,15 @@ function TaskDetail() {
     }
   }
 
+  async function handleUpdate(updatedTask) {
+    try {
+      await updateTask(updatedTask);
+      setShowEditModal(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <>
       <section>
@@ -38,6 +49,7 @@ function TaskDetail() {
         </div>
         <div>
           <button onClick={() => setIsShow(true)}>Elimina task</button>
+          <button onClick={() => setShowEditModal(true)}>Modifica Task</button>
         </div>
         <Modal
           title="Conferma eliminazione"
@@ -46,6 +58,12 @@ function TaskDetail() {
           onClose={() => setIsShow(false)}
           onConfirm={handleRemove}
           confirmText="Elimina"
+        />
+        <EditTaskModal
+          task={task}
+          show={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          onSave={handleUpdate}
         />
       </section>
     </>
