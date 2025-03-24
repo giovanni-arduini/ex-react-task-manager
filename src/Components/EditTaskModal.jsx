@@ -3,16 +3,22 @@ import Modal from "./Modal.jsx";
 
 function EditTaskModal({ show, onClose, task, onSave }) {
   const [editedTask, setEditedtask] = useState(task);
+  const editFormRef = useRef();
 
   function changeEditedTask(key, event) {
     setEditedtask((prev) => ({ ...prev, [key]: event.target.value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSave(editedTask);
   }
 
   return (
     <Modal
       title="Modifica Task"
       content={
-        <form>
+        <form ref={editFormRef} onSubmit={handleSubmit}>
           <label htmlFor="">
             Nome task:
             <input
@@ -44,7 +50,11 @@ function EditTaskModal({ show, onClose, task, onSave }) {
         </form>
       }
       confirmText="Salva"
-      onConfirm={() => {}}
+      onConfirm={() => {
+        editFormRef.current.requestSubmit();
+      }}
+      show={show}
+      onClose={onClose}
     ></Modal>
   );
 }
