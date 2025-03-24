@@ -42,20 +42,17 @@ function useTasks() {
     setTasks((prev) => prev.filter((t) => t.id != taskId));
   }
 
-  async function updateTask(updatedTask) {
+  async function updateTask(udt) {
     // Aggiornamento di una task
-    const response = await fetch(
-      `http://localhost:3001/tasks/${updatedTaks.id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updateTask),
-      }
-    );
+    const response = await fetch(`http://localhost:3001/tasks/${udt.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(udt),
+    });
     const { success, message, task } = await response.json();
     if (!success) throw new Error(message);
 
-    setTasks((prev) => prev.map(t.id === task.id ? task : t));
+    setTasks((prev) => prev.map((t) => (t.id === task.id ? task : t)));
   }
 
   return { tasks, addTask, removeTask, updateTask };
