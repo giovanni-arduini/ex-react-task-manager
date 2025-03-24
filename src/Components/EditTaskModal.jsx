@@ -30,7 +30,7 @@ function EditTaskModal({ show, onClose, task, onSave }) {
           <label>
             Descrizione:
             <textarea
-              value={task.description}
+              value={editedTask.description}
               onChange={(e) => changeEditedTask("description", e)}
             ></textarea>
           </label>
