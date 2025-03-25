@@ -9,24 +9,28 @@ const TaskList = memo(() => {
   const [sortBy, setSortBy] = useState("createdAt");
   const [sortOrder, setsortOrder] = useState(1);
 
-  const sortTask = useMemo(() => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredSortedTask = useMemo(() => {
     let comparison;
 
-    return [...tasks].sort((a, b) => {
-      if (sortBy === "title") {
-        comparison = a.title.localeCompare(b.title);
-      } else if (sortBy === "status") {
-        const statuses = ["To do", "Doing", "Done"];
-        comparison = statuses.indexOf(a.status) - statuses.indexOf(b.status);
-      } else if ("createdAt") {
-        const dateA = new Date(a.createdAt).getTime();
-        const dateB = new Date(b.createdAt).getTime();
-        comparison = dateA - dateB;
-      }
+    return [...tasks]
+      .filter((t) => t.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      .sort((a, b) => {
+        if (sortBy === "title") {
+          comparison = a.title.localeCompare(b.title);
+        } else if (sortBy === "status") {
+          const statuses = ["To do", "Doing", "Done"];
+          comparison = statuses.indexOf(a.status) - statuses.indexOf(b.status);
+        } else if ("createdAt") {
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          comparison = dateA - dateB;
+        }
 
-      return comparison * sortOrder;
-    });
-  }, [tasks, sortBy, sortOrder]);
+        return comparison * sortOrder;
+      });
+  }, [tasks, sortBy, sortOrder, searchQuery]);
 
   function sortHandler(check) {
     if (sortBy === check) {
@@ -40,6 +44,12 @@ const TaskList = memo(() => {
   return (
     <>
       <h1>Lista task</h1>
+      <input
+        type="text"
+        placeholder="Cerca una task"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      ></input>
       <table>
         <thead>
           <tr>
@@ -49,7 +59,7 @@ const TaskList = memo(() => {
           </tr>
         </thead>
         <tbody>
-          {sortTask.map((task) => (
+          {filteredSortedTask.map((task) => (
             <TaskRow key={task.id} task={task} />
           ))}
         </tbody>
