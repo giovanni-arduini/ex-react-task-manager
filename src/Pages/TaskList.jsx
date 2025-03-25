@@ -1,15 +1,29 @@
 import { GlobalContext } from "../Context/GlobalContext";
-import { useContext, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import "../Components/TaskRow";
 import TaskRow from "../Components/TaskRow";
 import { memo } from "react";
 
+// Debounce function
+
+function debounce(callback, delay) {
+  let timer;
+  return (value) => {
+    clearInterval(timer);
+    timer = setTimeout(() => {
+      callback(value);
+    }, delay);
+  };
+}
+
 const TaskList = memo(() => {
   const { tasks } = useContext(GlobalContext);
+
   const [sortBy, setSortBy] = useState("createdAt");
   const [sortOrder, setsortOrder] = useState(1);
-
   const [searchQuery, setSearchQuery] = useState("");
+
+  const debounceSearch = useCallback(debounce(setSearchQuery, 500), []);
 
   const filteredSortedTask = useMemo(() => {
     let comparison;
@@ -47,8 +61,7 @@ const TaskList = memo(() => {
       <input
         type="text"
         placeholder="Cerca una task"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={(e) => debounceSearch(e.target.value)}
       ></input>
       <table>
         <thead>
