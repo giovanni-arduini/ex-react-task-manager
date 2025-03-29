@@ -26,6 +26,10 @@
   text-align: justify;
 } */
 
+* {
+  font-family: "Overlock";
+}
+
 .red {
   background-color: rgb(244, 129, 129);
 }
