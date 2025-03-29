@@ -6,7 +6,7 @@ function DefaultLayout() {
   return (
     <>
       <Header />
-      <main>
+      <main className="container m-auto">
         <Outlet />
       </main>
       <Footer />
