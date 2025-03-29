@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useRef } from "react";
 import { useGlobalContext } from "../Context/GlobalContext";
 import "../Components/TaskRow";
 import TaskRow from "../Components/TaskRow";
@@ -57,26 +57,29 @@ const TaskList = memo(() => {
 
   return (
     <>
-      <h1>Lista task</h1>
-      <input
-        type="text"
-        placeholder="Cerca una task"
-        onChange={(e) => debounceSearch(e.target.value)}
-      ></input>
-      <table>
-        <thead>
-          <tr>
-            <th onClick={() => sortHandler("title")}>Titolo</th>
-            <th onClick={() => sortHandler("status")}>Stato</th>
-            <th onClick={() => sortHandler("createdAt")}>Data creazione</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredSortedTask.map((task) => (
-            <TaskRow key={task.id} task={task} />
-          ))}
-        </tbody>
-      </table>
+      <section className="flex flex-col mt-4">
+        <h1 className="mt-4 title">Cose da fare!</h1>
+        <input
+          className="self-start mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          type="text"
+          placeholder="Cerca una task"
+          onChange={(e) => debounceSearch(e.target.value)}
+        ></input>
+        <table className="min-w-3/4 table-fixed">
+          <thead>
+            <tr>
+              <th onClick={() => sortHandler("title")}>Titolo</th>
+              <th onClick={() => sortHandler("status")}>Stato</th>
+              <th onClick={() => sortHandler("createdAt")}>Data creazione</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredSortedTask.map((task) => (
+              <TaskRow key={task.id} task={task} />
+            ))}
+          </tbody>
+        </table>
+      </section>
     </>
   );
 }, []);
