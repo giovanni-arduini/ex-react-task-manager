@@ -1,5 +1,5 @@
-import { GlobalContext } from "../Context/GlobalContext";
-import { useCallback, useContext, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useGlobalContext } from "../Context/GlobalContext";
 import "../Components/TaskRow";
 import TaskRow from "../Components/TaskRow";
 import { memo } from "react";
@@ -17,7 +17,7 @@ function debounce(callback, delay) {
 }
 
 const TaskList = memo(() => {
-  const { tasks } = useContext(GlobalContext);
+  const { tasks } = useGlobalContext();
 
   const [sortBy, setSortBy] = useState("createdAt");
   const [sortOrder, setsortOrder] = useState(1);
@@ -79,6 +79,6 @@ const TaskList = memo(() => {
       </table>
     </>
   );
-});
+}, []);
 
 export default TaskList;

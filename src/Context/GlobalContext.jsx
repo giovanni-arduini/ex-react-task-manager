@@ -1,13 +1,14 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import useTasks from "../Hooks/useTasks";
-export const GlobalContext = createContext();
+const GlobalContext = createContext();
+export const useGlobalContext = useContext(GlobalContext);
 
 export function GlobalProvider({ children }) {
   //rendere disponibile useTasks nel global context
-  const tasksData = useTasks();
+  const { tasks, addTask, removeTask, updateTask } = useTasks();
 
   return (
-    <GlobalContext.Provider value={{ ...tasksData }}>
+    <GlobalContext.Provider value={{ tasks, addTask, removeTask, updateTask }}>
       {children}
     </GlobalContext.Provider>
   );
