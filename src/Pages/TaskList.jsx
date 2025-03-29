@@ -65,12 +65,18 @@ const TaskList = memo(() => {
           placeholder="Cerca una task"
           onChange={(e) => debounceSearch(e.target.value)}
         ></input>
-        <table className="min-w-3/4 table-fixed">
+        <table className="mt-6 min-w-3/4 table-fixed">
           <thead>
             <tr>
-              <th onClick={() => sortHandler("title")}>Titolo</th>
-              <th onClick={() => sortHandler("status")}>Stato</th>
-              <th onClick={() => sortHandler("createdAt")}>Data creazione</th>
+              <th className="text-lg" onClick={() => sortHandler("title")}>
+                Titolo
+              </th>
+              <th className="text-lg" onClick={() => sortHandler("status")}>
+                Stato
+              </th>
+              <th className="text-lg" onClick={() => sortHandler("createdAt")}>
+                Data creazione
+              </th>
             </tr>
           </thead>
           <tbody>
