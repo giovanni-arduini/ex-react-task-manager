@@ -1,8 +1,8 @@
 import { useRef, useState, useMemo, useContext } from "react";
-import { GlobalContext } from "../Context/GlobalContext";
+import { useGlobalContext } from "../Context/GlobalContext";
 
 function AddTask() {
-  const { addTask } = useContext(GlobalContext);
+  const { addTask } = useGlobalContext();
   const [title, setTitle] = useState("");
   const symbols = "£!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
   const descriptionRef = useRef();

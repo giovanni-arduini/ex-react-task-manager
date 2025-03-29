@@ -1,12 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { GlobalContext } from "../Context/GlobalContext";
+import { useGlobalContext } from "../Context/GlobalContext";
 import Modal from "../Components/Modal";
 import EditTaskModal from "../Components/EditTaskModal";
 
 function TaskDetail() {
   const { id } = useParams();
-  const { tasks, removeTask, updateTask } = useContext(GlobalContext);
+  const { tasks, removeTask, updateTask } = useGlobalContext();
   const [isShow, setIsShow] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const navigate = useNavigate();
