@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function Nav() {
   return (
-    <nav className="flex justify-around p-6  m-auto bg-blue-100">
+    <nav className="flex justify-around p-6 bg-blue-200 dark:bg-sky-950 dark:text-gray-200 grow-0">
       <div className="flex-3">
         <NavLink className={"mx-5"} to="/">
           Task List
@@ -12,7 +12,7 @@ function Nav() {
         </NavLink>
       </div>
       <div className="flex-1 ">
-        <div className="m-auto" src="" alt="Logo">
+        <div className="justify-self-end" src="" alt="Logo">
           Dark mode on/off
         </div>
       </div>
