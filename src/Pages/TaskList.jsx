@@ -57,34 +57,49 @@ const TaskList = memo(() => {
 
   return (
     <>
-      <section className="flex flex-col mt-4">
-        <h1 className="mt-4 title">Cose da fare!</h1>
+      <section className="max-w-3/4 m-auto flex flex-col mt-4">
+        <h1 className="mt-4 title dark:text-gray-300">Cose da fare!</h1>
         <input
           className="self-start mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           type="text"
           placeholder="Cerca una task"
           onChange={(e) => debounceSearch(e.target.value)}
         ></input>
-        <table className="mt-6 min-w-3/4 table-fixed">
-          <thead>
-            <tr>
-              <th className="text-lg" onClick={() => sortHandler("title")}>
-                Titolo
-              </th>
-              <th className="text-lg" onClick={() => sortHandler("status")}>
-                Stato
-              </th>
-              <th className="text-lg" onClick={() => sortHandler("createdAt")}>
-                Data creazione
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredSortedTask.map((task) => (
-              <TaskRow key={task.id} task={task} />
-            ))}
-          </tbody>
-        </table>
+        <div class="relative overflow-x-auto mt-6">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            {/* <table className="mt-6 table-fixed"> */}
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th
+                  className="text-lg px-6 py-3 hover:cursor-pointer"
+                  scope="col"
+                  onClick={() => sortHandler("title")}
+                >
+                  Titolo
+                </th>
+                <th
+                  className="text-lg px-6 py-3 text-center hover:cursor-pointer"
+                  scope="col"
+                  onClick={() => sortHandler("status")}
+                >
+                  Stato
+                </th>
+                <th
+                  className="text-lg px-6 py-3 text-center hover:cursor-pointer"
+                  scope="col"
+                  onClick={() => sortHandler("createdAt")}
+                >
+                  Data creazione
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredSortedTask.map((task) => (
+                <TaskRow key={task.id} task={task} />
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </>
   );
