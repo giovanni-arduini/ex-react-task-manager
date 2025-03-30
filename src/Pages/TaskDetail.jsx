@@ -38,18 +38,33 @@ function TaskDetail() {
 
   return (
     <>
-      <section>
-        <div>
-          <h2>{task.title}</h2>
-          <p>Descrizione: {task.description}</p>
-          <p>Status: {task.status}</p>
-          <p>
+      <section className="max-w-3/4 sm:max-w-1/2 m-auto flex flex-col mt-8">
+        <div className="flex flex-col bg-gray-300 dark:bg-slate-500 p-4 rounded-lg shadow-md p-5 text-gray-900 dark:text-gray-300">
+          <h2 className="text-3xl">{task.title}</h2>
+          <p className="mt-2 ">
+            <strong>Descrizione:</strong> {task.description}
+          </p>
+          <p className="mt-2 ">
+            <strong>Status: </strong>
+            {task.status}
+          </p>
+          <p className="mt-2 ">
             Data di creazione: {new Date(task.createdAt).toLocaleDateString()}
           </p>
         </div>
-        <div>
-          <button onClick={() => setIsShow(true)}>Elimina task</button>
-          <button onClick={() => setShowEditModal(true)}>Modifica Task</button>
+        <div className="flex justify-around mt-4 sm:flex-row flex-col gap-4">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white dark:bg-sky-700 dark:hover:bg-sky-900 hover:cursor-pointer font-bold py-2 px-4 rounded"
+            onClick={() => setIsShow(true)}
+          >
+            Elimina task
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white dark:bg-sky-700 dark:hover:bg-sky-900 hover:cursor-pointer font-bold py-2 px-4 rounded"
+            onClick={() => setShowEditModal(true)}
+          >
+            Modifica Task
+          </button>
         </div>
         <Modal
           title="Conferma eliminazione"
