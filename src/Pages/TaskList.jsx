@@ -68,10 +68,10 @@ const TaskList = memo(() => {
         <div class="relative overflow-x-auto mt-6">
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             {/* <table className="mt-6 table-fixed"> */}
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
               <tr>
                 <th
-                  className="text-lg px-6 py-3 hover:cursor-pointer"
+                  className="text-lg text-center px-6 py-3 hover:cursor-pointer"
                   scope="col"
                   onClick={() => sortHandler("title")}
                 >
