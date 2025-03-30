@@ -45,10 +45,17 @@ function AddTask() {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <section>
+      <div className="container mx-auto mt-8 flex justify-center">
+        <form
+          className="w-1/2 md:w-1/3 flex flex-col content-center"
+          onSubmit={handleSubmit}
+        >
+          <section className="flex flex-col gap-3">
+            <label className="text-lg dark:text-gray-200" htmlFor="title">
+              Nuova Task
+            </label>
             <input
+              className=" block mb-2 text-sm font-medium text-gray-900 rows-4 dark:bg-slate-500 dark:text-gray-100 bg-white border p-2 rounded"
               type="text"
               name="title"
               id="title"
@@ -64,20 +71,28 @@ function AddTask() {
               (title.trim().length === 0 && (
                 <p style={{ color: "red" }}>Il titolo non può essere vuoto</p>
               ))}
+            <input
+              type="text"
+              name="description"
+              id="description "
+              className=" block mb-2 text-sm font-medium text-gray-900 rows-4 dark:bg-slate-500 dark:text-gray-100 bg-white border p-2 rounded"
+              placeholder="Scrivi una descrizione"
+              ref={descriptionRef}
+            />
+            <select
+              className=" block mb-2 text-sm font-medium text-gray-900 rows-4 dark:bg-slate-500 dark:text-gray-100 bg-white border p-2 rounded"
+              name="status"
+              id="status"
+              ref={statusRef}
+            >
+              <option value="To do">To Do</option>
+              <option value="Doing">Doing</option>
+              <option value="Done">Done</option>
+            </select>
           </section>
-          <input
-            type="text"
-            name="description"
-            id="description "
-            placeholder="Scrivi una descrizione"
-            ref={descriptionRef}
-          />
-          <select name="status" id="status" ref={statusRef}>
-            <option value="To do">To Do</option>
-            <option value="Doing">Doing</option>
-            <option value="Done">Done</option>
-          </select>
-          <button>Aggiungi Taks</button>
+          <button className="mt-7 bg-blue-500 hover:bg-blue-700 text-white dark:bg-sky-700 dark:hover:bg-sky-900 hover:cursor-pointer font-bold py-2 px-4 rounded ">
+            Aggiungi Taks
+          </button>
         </form>
       </div>
     </>
