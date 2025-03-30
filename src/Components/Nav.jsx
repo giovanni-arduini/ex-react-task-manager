@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 function Nav() {
   return (
@@ -12,8 +13,8 @@ function Nav() {
         </NavLink>
       </div>
       <div className="flex-1 ">
-        <div className="justify-self-end" src="" alt="Logo">
-          Dark mode on/off
+        <div className="justify-self-end">
+          <ThemeToggle />
         </div>
       </div>
     </nav>
