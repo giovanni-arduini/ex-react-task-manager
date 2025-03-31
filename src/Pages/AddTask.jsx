@@ -37,7 +37,7 @@ function AddTask() {
       console.log("Task inserita con successo");
       setTitle("");
       descriptionRef.current.value = null;
-      statusRef.current.value = "To Do";
+      statusRef.current.value = "To do";
     } catch (error) {
       console.error(error.message);
     }
