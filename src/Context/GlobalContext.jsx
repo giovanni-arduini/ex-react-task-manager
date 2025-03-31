@@ -7,10 +7,13 @@ export function useGlobalContext() {
 
 export function GlobalProvider({ children }) {
   //rendere disponibile useTasks nel global context
-  const { tasks, addTask, removeTask, updateTask } = useTasks();
+  const { tasks, addTask, removeTask, updateTask, removeMultipeTasks } =
+    useTasks();
 
   return (
-    <GlobalContext.Provider value={{ tasks, addTask, removeTask, updateTask }}>
+    <GlobalContext.Provider
+      value={{ tasks, addTask, removeTask, updateTask, removeMultipeTasks }}
+    >
       {children}
     </GlobalContext.Provider>
   );
