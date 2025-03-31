@@ -40,6 +40,7 @@ function AddTask() {
       descriptionRef.current.value = null;
       statusRef.current.value = "To do";
     } catch (error) {
+      alert(error);
       console.error(error.message);
     }
   }

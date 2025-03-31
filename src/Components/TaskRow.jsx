@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 function TaskRow({ task, checked, onToggle }) {
   return (
@@ -27,7 +28,7 @@ function TaskRow({ task, checked, onToggle }) {
         {task.status}
       </td>
       <td className="p-2  text-center">
-        {new Date(task.createdAt).toLocaleDateString()}
+        {dayjs(task.createdAt).format("DD/MM/YYYY")}
       </td>
     </tr>
   );

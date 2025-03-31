@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { useGlobalContext } from "../Context/GlobalContext";
 import Modal from "../Components/Modal";
 import EditTaskModal from "../Components/EditTaskModal";
+import dayjs from "dayjs";
 
 function TaskDetail() {
   const { id } = useParams();
@@ -49,7 +50,7 @@ function TaskDetail() {
             {task.status}
           </p>
           <p className="mt-2 ">
-            Data di creazione: {new Date(task.createdAt).toLocaleDateString()}
+            Data di creazione: {dayjs(task.createdAt).format("DD/MM/YYYY")}
           </p>
         </div>
         <div className="flex justify-around mt-4 sm:flex-row flex-col gap-4">
