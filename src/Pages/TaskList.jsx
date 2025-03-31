@@ -17,11 +17,14 @@ function debounce(callback, delay) {
 }
 
 const TaskList = memo(() => {
-  const { tasks } = useGlobalContext();
+  const { tasks, removeMultipeTasks } = useGlobalContext();
 
   const [sortBy, setSortBy] = useState("createdAt");
   const [sortOrder, setsortOrder] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTaskIds, setSelectedTaskIds] = useState([]);
+
+  const sectionRef = useRef();
 
   const debounceSearch = useCallback(debounce(setSearchQuery, 500), []);
 
@@ -55,9 +58,37 @@ const TaskList = memo(() => {
     }
   }
 
+  function toggleSelection(taskId) {
+    if (selectedTaskIds.includes(taskId)) {
+      setSelectedTaskIds((prev) => prev.filter((id) => id !== taskId));
+    } else {
+      setSelectedTaskIds((prev) => [...prev, taskId]);
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      await removeMultipeTasks(selectedTaskIds);
+      console.alert("Task eliminate con successo");
+      setSelectedTaskIds([]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function toTop() {
+    sectionRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+
   return (
     <>
-      <section className="max-w-3/4 m-auto flex flex-col mt-4">
+      <section
+        className="max-w-3/4 m-auto flex flex-col mt-4 min-h-screen"
+        ref={sectionRef}
+      >
         <h1 className="mt-4 title dark:text-gray-300">Cose da fare!</h1>
         <input
           className="self-start mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -65,11 +96,17 @@ const TaskList = memo(() => {
           placeholder="Cerca una task"
           onChange={(e) => debounceSearch(e.target.value)}
         ></input>
-        <div class="relative overflow-x-auto mt-6">
-          <table class="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+        {selectedTaskIds.length > 0 && (
+          <button onClick={handleDelete}>Elimina task selezionate</button>
+        )}
+
+        <div className="relative overflow-x-auto mt-6">
+          <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             {/* <table className="mt-6 table-fixed"> */}
-            <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+            <thead className=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
               <tr>
+                <th></th>
                 <th
                   className=" text-lg text-center px-6 py-3 hover:cursor-pointer"
                   scope="col"
@@ -95,11 +132,24 @@ const TaskList = memo(() => {
             </thead>
             <tbody>
               {filteredSortedTask.map((task) => (
-                <TaskRow key={task.id} task={task} />
+                <TaskRow
+                  key={task.id}
+                  task={task}
+                  checked={selectedTaskIds.includes(task.id)}
+                  onToggle={toggleSelection}
+                />
               ))}
             </tbody>
           </table>
         </div>
+      </section>
+      <section className="flex justify-center m-4">
+        <button
+          className="p-2 bg-gray-300 dark:bg-gray-800 dark:text-white rounded-lg"
+          onClick={toTop}
+        >
+          Torna su
+        </button>
       </section>
     </>
   );
