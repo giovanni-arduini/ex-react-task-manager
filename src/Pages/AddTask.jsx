@@ -35,6 +35,7 @@ function AddTask() {
     try {
       await addTask(newTask);
       console.log("Task inserita con successo");
+      alert("Task inserita con successo");
       setTitle("");
       descriptionRef.current.value = null;
       statusRef.current.value = "To do";

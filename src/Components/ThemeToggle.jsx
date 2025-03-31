@@ -25,7 +25,7 @@ function ThemeToggle() {
       onClick={toggleTheme}
       className="p-2 bg-gray-300 dark:bg-gray-800 dark:text-white rounded-lg"
     >
-      {isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+      {isDarkMode ? "Passa a dark mode" : "Passa a light mode"}
     </button>
   );
 }

@@ -69,7 +69,7 @@ const TaskList = memo(() => {
   async function handleDelete() {
     try {
       await removeMultipeTasks(selectedTaskIds);
-      console.alert("Task eliminate con successo");
+      alert("Task eliminate con successo");
       setSelectedTaskIds([]);
     } catch (error) {
       console.error(error);
@@ -98,7 +98,12 @@ const TaskList = memo(() => {
         ></input>
 
         {selectedTaskIds.length > 0 && (
-          <button onClick={handleDelete}>Elimina task selezionate</button>
+          <button
+            className="self-start mt-4 bg-blue-500 hover:bg-blue-700 text-white dark:bg-sky-700 dark:hover:bg-sky-900 hover:cursor-pointer font-bold py-2 px-4 rounded"
+            onClick={handleDelete}
+          >
+            Elimina task selezionate
+          </button>
         )}
 
         <div className="relative overflow-x-auto mt-6">
