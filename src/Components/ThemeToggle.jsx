@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 function ThemeToggle() {
-  // Check localStorage for the saved theme or default to light mode
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
@@ -25,7 +24,7 @@ function ThemeToggle() {
       onClick={toggleTheme}
       className="p-2 bg-gray-300 dark:bg-gray-800 dark:text-white rounded-lg"
     >
-      {isDarkMode ? "Passa a dark mode" : "Passa a light mode"}
+      {isDarkMode ? "Passa alla modalità chiara" : "Passa alla modalità scura"}
     </button>
   );
 }
