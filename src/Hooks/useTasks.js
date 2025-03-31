@@ -43,18 +43,21 @@ function useTasks() {
   }
 
   async function removeMultipeTasks(taskIds) {
-    const requestsPromises = taskIds.map((taskid) => {
-      fetch(`http://localhost:3001/tasks/${taskid}`, { method: "DELETE" }).then(
-        (res) => res.json()
-      );
+    const requestsPromises = taskIds.map((taskId) => {
+      return fetch(`http://localhost:3001/tasks/${taskId}`, {
+        method: "DELETE",
+      }).then((res) => res.json());
     });
     const results = await Promise.allSettled(requestsPromises);
 
+    console.log(results);
+
     const fulfilled = [];
     const rejected = [];
+
     results.forEach((result, i) => {
       const taskId = taskIds[i];
-      if (result.status === "fulfilled" && result.value) {
+      if (result.status === "fulfilled" && result.value.success) {
         fulfilled.push(taskId);
       } else {
         rejected.push(taskId);
