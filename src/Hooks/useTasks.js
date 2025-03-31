@@ -81,6 +81,11 @@ function useTasks() {
 
   async function updateTask(udt) {
     // Aggiornamento di una task
+
+    if (tasks.find((t) => t.title === udt.title && t.id !== udt.id)) {
+      throw new Error("Esiste già una task con questo nome");
+    }
+
     const response = await fetch(`http://localhost:3001/tasks/${udt.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
