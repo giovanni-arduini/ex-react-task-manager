@@ -4,6 +4,7 @@ import Modal from "./Modal.jsx";
 function EditTaskModal({ show, onClose, task, onSave }) {
   const [editedTask, setEditedtask] = useState(task);
   const editFormRef = useRef();
+  const selectRef = useRef("To do");
 
   function changeEditedTask(key, event) {
     setEditedtask((prev) => ({ ...prev, [key]: event.target.value }));
@@ -23,7 +24,7 @@ function EditTaskModal({ show, onClose, task, onSave }) {
           ref={editFormRef}
           onSubmit={handleSubmit}
         >
-          <label className="flex flex-col" htmlFor="">
+          <label className="flex flex-col">
             Nome task:
             <input
               className="block mb-2 text-sm font-medium text-gray-900 bg-white p-2 border rounded"
@@ -44,8 +45,9 @@ function EditTaskModal({ show, onClose, task, onSave }) {
             Stato:
             <select
               className="block mb-2 text-sm font-medium text-gray-900 bg-white border p-2 rounded"
-              value={task.status}
+              // value={task.status}
               onChange={(e) => changeEditedTask("status", e)}
+              ref={selectRef}
             >
               {["To do", "Doing", "Done"].map((value, index) => {
                 return (
