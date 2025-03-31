@@ -42,6 +42,36 @@ function useTasks() {
     setTasks((prev) => prev.filter((t) => t.id != taskId));
   }
 
+  async function removeMultipeTasks(taskIds) {
+    const requestsPromises = taskIds.map((taskid) => {
+      fetch(`http://localhost:3001/tasks/${taskid}`, { method: "DELETE" }).then(
+        (res) => res.json()
+      );
+    });
+    const results = await Promise.allSettled(requestsPromises);
+
+    const fulfilled = [];
+    const rejected = [];
+    results.forEach((result, i) => {
+      const taskId = taskIds[i];
+      if (result.status === "fulfilled" && result.value) {
+        fulfilled.push(taskId);
+      } else {
+        rejected.push(taskId);
+      }
+    });
+
+    if (fulfilled.length > 0) {
+      setTasks((prev) => prev.filter((task) => !fulfilled.includes(task.id)));
+    }
+
+    if (rejected.length > 0) {
+      throw new Error(
+        `Errore nell'eliminazione delle task con id: ${rejected.join(", ")}`
+      );
+    }
+  }
+
   async function updateTask(udt) {
     // Aggiornamento di una task
     const response = await fetch(`http://localhost:3001/tasks/${udt.id}`, {
@@ -55,7 +85,7 @@ function useTasks() {
     setTasks((prev) => prev.map((t) => (t.id === task.id ? task : t)));
   }
 
-  return { tasks, addTask, removeTask, updateTask };
+  return { tasks, addTask, removeTask, updateTask, removeMultipeTasks };
 }
 
 export default useTasks;
