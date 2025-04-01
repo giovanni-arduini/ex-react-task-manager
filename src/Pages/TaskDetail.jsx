@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useGlobalContext } from "../Context/GlobalContext";
 import Modal from "../Components/Modal";
 import EditTaskModal from "../Components/EditTaskModal";
