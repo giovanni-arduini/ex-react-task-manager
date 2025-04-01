@@ -4,6 +4,7 @@ import { useGlobalContext } from "../Context/GlobalContext";
 import Modal from "../Components/Modal";
 import EditTaskModal from "../Components/EditTaskModal";
 import dayjs from "dayjs";
+import { NavLink } from "react-router-dom";
 
 function TaskDetail() {
   const { id } = useParams();
@@ -55,7 +56,7 @@ function TaskDetail() {
         </div>
         <div className="flex justify-around mt-4 sm:flex-row flex-col gap-4">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white dark:bg-sky-700 dark:hover:bg-sky-900 hover:cursor-pointer font-bold py-2 px-4 rounded"
+            className="bg-red-500 hover:bg-red-700 text-white dark:bg-red-700 dark:hover:bg-red-800 hover:cursor-pointer font-bold py-2 px-4 rounded"
             onClick={() => setIsShow(true)}
           >
             Elimina task
@@ -67,20 +68,28 @@ function TaskDetail() {
             Modifica Task
           </button>
         </div>
-        <Modal
-          title="Conferma eliminazione"
-          content={<p>Sei sicuro di voler eliminare questa task?</p>}
-          show={isShow}
-          onClose={() => setIsShow(false)}
-          onConfirm={handleRemove}
-          confirmText="Elimina"
-        />
-        <EditTaskModal
-          task={task}
-          show={showEditModal}
-          onClose={() => setShowEditModal(false)}
-          onSave={handleUpdate}
-        />
+        <div className="flex justify-center mt-4">
+          <Modal
+            title="Conferma eliminazione"
+            content={<p>Sei sicuro di voler eliminare questa task?</p>}
+            show={isShow}
+            onClose={() => setIsShow(false)}
+            onConfirm={handleRemove}
+            confirmText="Elimina"
+          />
+          <EditTaskModal
+            task={task}
+            show={showEditModal}
+            onClose={() => setShowEditModal(false)}
+            onSave={handleUpdate}
+          />
+          <NavLink
+            className="mt-10 max-w-1/4 bg-blue-500 hover:bg-blue-700 text-white dark:bg-sky-700 dark:hover:bg-sky-900 hover:cursor-pointer font-bold py-2 px-4 rounded"
+            to={"/"}
+          >
+            Torna alla lista
+          </NavLink>
+        </div>
       </section>
     </>
   );
