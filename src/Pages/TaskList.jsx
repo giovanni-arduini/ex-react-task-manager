@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, useRef } from "react";
+import { useCallback, useMemo, useState, useRef, useEffect } from "react";
 import { useGlobalContext } from "../Context/GlobalContext";
 import "../Components/TaskRow";
 import TaskRow from "../Components/TaskRow";
@@ -25,8 +25,13 @@ const TaskList = memo(() => {
   const [selectedTaskIds, setSelectedTaskIds] = useState([]);
 
   const sectionRef = useRef();
+  const searchRef = useRef();
 
   const debounceSearch = useCallback(debounce(setSearchQuery, 500), []);
+
+  useEffect(() => {
+    searchRef.current.focus();
+  }, []);
 
   const filteredSortedTask = useMemo(() => {
     let comparison;
@@ -95,6 +100,7 @@ const TaskList = memo(() => {
           type="text"
           placeholder="Cerca una task"
           onChange={(e) => debounceSearch(e.target.value)}
+          ref={searchRef}
         ></input>
 
         {selectedTaskIds.length > 0 && (
