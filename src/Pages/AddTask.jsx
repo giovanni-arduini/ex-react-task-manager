@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, useContext } from "react";
+import { useRef, useState, useMemo, useContext, useEffect } from "react";
 import { useGlobalContext } from "../Context/GlobalContext";
 
 function AddTask() {
@@ -7,6 +7,8 @@ function AddTask() {
   const symbols = "£!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
   const descriptionRef = useRef();
   const statusRef = useRef();
+
+  const titleRef = useRef();
 
   // validazione con useMemo, ricalcolata solo se cambia title
   const isTitleValid = useMemo(() => {
@@ -17,6 +19,10 @@ function AddTask() {
   function handleNameChange(event) {
     setTitle(event.target.value);
   }
+
+  useEffect(() => {
+    titleRef.current.focus();
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -64,6 +70,7 @@ function AddTask() {
               placeholder="Titolo della task"
               value={title}
               onChange={handleNameChange}
+              ref={titleRef}
             />
             {(!isTitleValid && (
               <p style={{ color: "red" }}>
