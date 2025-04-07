@@ -8,10 +8,10 @@ import { memo } from "react";
 
 function debounce(callback, delay) {
   let timer;
-  return (value) => {
+  return (...args) => {
     clearInterval(timer);
     timer = setTimeout(() => {
-      callback(value);
+      callback(...args);
     }, delay);
   };
 }
@@ -26,6 +26,8 @@ const TaskList = memo(() => {
 
   const sectionRef = useRef();
   const searchRef = useRef();
+
+  const sortIcon = sortOrder < 0 ? "⬆" : "⬇";
 
   const debounceSearch = useCallback(debounce(setSearchQuery, 500), []);
 
@@ -123,21 +125,21 @@ const TaskList = memo(() => {
                   scope="col"
                   onClick={() => sortHandler("title")}
                 >
-                  Titolo
+                  Titolo {sortBy === "title" && sortIcon}
                 </th>
                 <th
                   className="text-lg px-6 py-3 text-center hover:cursor-pointer"
                   scope="col"
                   onClick={() => sortHandler("status")}
                 >
-                  Stato
+                  Stato {sortBy === "status" && sortIcon}
                 </th>
                 <th
                   className="text-lg px-6 py-3 text-center hover:cursor-pointer"
                   scope="col"
                   onClick={() => sortHandler("createdAt")}
                 >
-                  Data creazione
+                  Data creazione {sortBy === "createdAt" && sortIcon}
                 </th>
               </tr>
             </thead>
