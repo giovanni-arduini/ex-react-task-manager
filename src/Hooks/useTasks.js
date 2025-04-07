@@ -11,8 +11,6 @@ function useTasks() {
   }, []);
 
   const addTask = async (newTask) => {
-    const { title, description, status } = newTask;
-
     if (tasks.some((t) => t.title === newTask.title)) {
       throw new Error("Esiste già una task con questo nome");
     }
