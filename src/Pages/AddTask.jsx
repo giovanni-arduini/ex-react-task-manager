@@ -1,5 +1,6 @@
 import { useRef, useState, useMemo, useContext, useEffect } from "react";
 import { useGlobalContext } from "../Context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 function AddTask() {
   const { addTask } = useGlobalContext();
@@ -7,6 +8,7 @@ function AddTask() {
   const symbols = "£!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
   const descriptionRef = useRef();
   const statusRef = useRef();
+  const navigate = useNavigate();
 
   const titleRef = useRef();
 
@@ -49,6 +51,8 @@ function AddTask() {
       alert(error);
       console.error(error.message);
     }
+
+    navigate("/");
   }
 
   return (
